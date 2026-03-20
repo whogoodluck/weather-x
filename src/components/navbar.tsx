@@ -19,7 +19,7 @@ export function Navbar() {
         <div className='flex items-center gap-1'>
           <Link
             to='/'
-            className={`rounded-lg px-3 py-1.5 text-sm font-medium transition-colors ${
+            className={`rounded-sm px-3 py-1.5 text-sm font-medium transition-colors ${
               pathname === '/'
                 ? 'bg-accent'
                 : 'text-muted-foreground hover:text-foreground'
@@ -29,7 +29,7 @@ export function Navbar() {
           </Link>
           <Link
             to='/historical'
-            className={`rounded-lg px-3 py-1.5 text-sm font-medium transition-colors ${
+            className={`rounded-sm px-3 py-1.5 text-sm font-medium transition-colors ${
               pathname === '/historical'
                 ? 'bg-accent'
                 : 'text-muted-foreground hover:text-foreground'
