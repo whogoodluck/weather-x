@@ -34,7 +34,6 @@ export function useWeatherData(coords: Coordinates | null, date?: Date) {
         fetchAirQuality(coords, dateStr),
       ])
 
-      // Merge PM data into hourly
       weatherResult.hourly.pm10 = aqResult.hourlyPm10
       weatherResult.hourly.pm25 = aqResult.hourlyPm25
 

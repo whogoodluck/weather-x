@@ -49,7 +49,6 @@ export function TodayPage() {
 
   return (
     <div className='space-y-4 sm:space-y-6'>
-      {/* Date picker row */}
       <div className='flex flex-wrap items-center gap-2 sm:gap-3'>
         <span className='shrink-0 text-sm font-medium text-muted-foreground'>
           Date:

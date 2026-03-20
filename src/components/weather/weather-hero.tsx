@@ -26,7 +26,6 @@ export function WeatherHero({ current, cityName, tempUnit, date }: Props) {
 
   return (
     <div className='relative overflow-hidden rounded-3xl bg-linear-to-br from-sky-500 via-blue-600 to-indigo-700 p-6 text-white shadow-xl dark:from-sky-800 dark:via-blue-900 dark:to-indigo-950'>
-      {/* Background decorative circles */}
       <div className='pointer-events-none absolute -top-10 -right-10 h-52 w-52 rounded-full bg-white/10' />
       <div className='pointer-events-none absolute right-16 -bottom-12 h-36 w-36 rounded-full bg-white/5' />
 

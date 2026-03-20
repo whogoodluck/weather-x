@@ -45,7 +45,6 @@ function ChartCard({
   )
 }
 
-// Determine tick interval based on data length
 function tickInterval(n: number) {
   if (n <= 30) return 2
   if (n <= 90) return 6
@@ -59,7 +58,6 @@ function formatDate(dateStr: string) {
   return d.toLocaleDateString('en-IN', { month: 'short', day: 'numeric' })
 }
 
-// Compute chart width based on data size — each data point ~12px min
 function chartWidth(n: number) {
   return Math.max(900, n * 12)
 }
@@ -69,7 +67,6 @@ export function HistoricalCharts({ data }: Props) {
   const interval = tickInterval(n)
   const cWidth = chartWidth(n)
 
-  // Build daily records
   const tempData = data.time.map((t, i) => ({
     date: formatDate(t),
     max: data.temperatureMax[i],
@@ -102,7 +99,6 @@ export function HistoricalCharts({ data }: Props) {
 
   return (
     <div className='grid gap-5'>
-      {/* Temperature */}
       <ChartCard title='Temperature — Mean, Max & Min (°C)'>
         <ScrollableChart minWidth={cWidth} height={240}>
           <ResponsiveContainer width='100%' height='100%'>
@@ -151,7 +147,6 @@ export function HistoricalCharts({ data }: Props) {
         </ScrollableChart>
       </ChartCard>
 
-      {/* Sunrise & Sunset */}
       <ChartCard title='Sunrise & Sunset (IST)'>
         <ScrollableChart minWidth={cWidth} height={200}>
           <ResponsiveContainer width='100%' height='100%'>
@@ -189,7 +184,6 @@ export function HistoricalCharts({ data }: Props) {
         </ScrollableChart>
       </ChartCard>
 
-      {/* Precipitation */}
       <ChartCard title='Precipitation — Daily Total (mm)'>
         <ScrollableChart minWidth={cWidth} height={220}>
           <ResponsiveContainer width='100%' height='100%'>
@@ -219,7 +213,6 @@ export function HistoricalCharts({ data }: Props) {
         </ScrollableChart>
       </ChartCard>
 
-      {/* Wind speed + direction */}
       <ChartCard title='Wind — Max Speed (km/h) & Dominant Direction (°)'>
         <ScrollableChart minWidth={cWidth} height={240}>
           <ResponsiveContainer width='100%' height='100%'>
@@ -266,7 +259,6 @@ export function HistoricalCharts({ data }: Props) {
         </ScrollableChart>
       </ChartCard>
 
-      {/* PM10 + PM2.5 */}
       <ChartCard title='Air Quality — PM10 & PM2.5 Daily Mean (μg/m³)'>
         <ScrollableChart minWidth={cWidth} height={240}>
           <ResponsiveContainer width='100%' height='100%'>

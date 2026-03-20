@@ -31,7 +31,7 @@ function buildHourlyPoints(
   label: string
 ) {
   return times.map((t, i) => ({
-    time: t.slice(11, 16), // "HH:mm"
+    time: t.slice(11, 16),
     [label]: values[i] ?? null,
   }))
 }

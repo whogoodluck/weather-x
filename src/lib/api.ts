@@ -138,7 +138,6 @@ export async function fetchHistorical(
   const wData = await weatherRes.json()
   const aqData = await aqRes.json()
 
-  // Aggregate hourly AQ to daily means
   const hourlyPm10: number[] = aqData.hourly?.pm10 ?? []
   const hourlyPm25: number[] = aqData.hourly?.pm2_5 ?? []
   const days = wData.daily?.time?.length ?? 0
@@ -162,7 +161,6 @@ export async function fetchHistorical(
 
   const daily = wData.daily ?? {}
 
-  // Convert sunrise/sunset to IST display strings
   const toIST = (iso: string) => {
     if (!iso) return ''
     const d = new Date(iso)
