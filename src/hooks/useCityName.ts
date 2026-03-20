@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react"
-import type { Coordinates } from "../types/weather"
+import { useState, useEffect } from 'react'
+import type { Coordinates } from '../types/weather'
 
 export function useCityName(coords: Coordinates | null): string {
-  const [city, setCity] = useState("Your Location")
+  const [city, setCity] = useState('Your Location')
 
   useEffect(() => {
     if (!coords) return
@@ -18,10 +18,10 @@ export function useCityName(coords: Coordinates | null): string {
           addr.village ||
           addr.county ||
           addr.state ||
-          "Your Location"
+          'Your Location'
         setCity(name)
       })
-      .catch(() => setCity("Your Location"))
+      .catch(() => setCity('Your Location'))
   }, [coords])
 
   return city

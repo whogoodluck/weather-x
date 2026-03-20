@@ -4,21 +4,21 @@ import type {
   AirQuality,
   HourlyData,
   DailyHistoricalData,
-} from "../types/weather"
+} from '../types/weather'
 
-const BASE_URL = "https://api.open-meteo.com/v1"
-const AIR_URL = "https://air-quality-api.open-meteo.com/v1"
+const BASE_URL = 'https://api.open-meteo.com/v1'
+const AIR_URL = 'https://air-quality-api.open-meteo.com/v1'
 
 function formatDate(date: Date): string {
-  return date.toISOString().split("T")[0]
+  return date.toISOString().split('T')[0]
 }
 
 function parseTime(iso: string): string {
   const d = new Date(iso)
-  return d.toLocaleTimeString("en-IN", {
-    hour: "2-digit",
-    minute: "2-digit",
-    timeZone: "Asia/Kolkata",
+  return d.toLocaleTimeString('en-IN', {
+    hour: '2-digit',
+    minute: '2-digit',
+    timeZone: 'Asia/Kolkata',
   })
 }
 
@@ -27,26 +27,26 @@ export async function fetchCurrentAndHourly(
   date: string
 ): Promise<{ current: CurrentWeather; hourly: HourlyData }> {
   const url = new URL(`${BASE_URL}/forecast`)
-  url.searchParams.set("latitude", String(coords.lat))
-  url.searchParams.set("longitude", String(coords.lon))
-  url.searchParams.set("start_date", date)
-  url.searchParams.set("end_date", date)
+  url.searchParams.set('latitude', String(coords.lat))
+  url.searchParams.set('longitude', String(coords.lon))
+  url.searchParams.set('start_date', date)
+  url.searchParams.set('end_date', date)
   url.searchParams.set(
-    "hourly",
-    "temperature_2m,relative_humidity_2m,precipitation,visibility,wind_speed_10m"
+    'hourly',
+    'temperature_2m,relative_humidity_2m,precipitation,visibility,wind_speed_10m'
   )
   url.searchParams.set(
-    "daily",
-    "temperature_2m_max,temperature_2m_min,sunrise,sunset,precipitation_sum,wind_speed_10m_max,uv_index_max,precipitation_probability_max,weather_code"
+    'daily',
+    'temperature_2m_max,temperature_2m_min,sunrise,sunset,precipitation_sum,wind_speed_10m_max,uv_index_max,precipitation_probability_max,weather_code'
   )
   url.searchParams.set(
-    "current",
-    "temperature_2m,relative_humidity_2m,weather_code"
+    'current',
+    'temperature_2m,relative_humidity_2m,weather_code'
   )
-  url.searchParams.set("timezone", "auto")
+  url.searchParams.set('timezone', 'auto')
 
   const res = await fetch(url.toString())
-  if (!res.ok) throw new Error("Weather fetch failed")
+  if (!res.ok) throw new Error('Weather fetch failed')
   const data = await res.json()
 
   const daily = data.daily
@@ -83,22 +83,22 @@ export async function fetchAirQuality(
   date: string
 ): Promise<{ aq: AirQuality; hourlyPm10: number[]; hourlyPm25: number[] }> {
   const url = new URL(`${AIR_URL}/air-quality`)
-  url.searchParams.set("latitude", String(coords.lat))
-  url.searchParams.set("longitude", String(coords.lon))
-  url.searchParams.set("start_date", date)
-  url.searchParams.set("end_date", date)
+  url.searchParams.set('latitude', String(coords.lat))
+  url.searchParams.set('longitude', String(coords.lon))
+  url.searchParams.set('start_date', date)
+  url.searchParams.set('end_date', date)
   url.searchParams.set(
-    "hourly",
-    "pm10,pm2_5,carbon_monoxide,nitrogen_dioxide,sulphur_dioxide,european_aqi"
+    'hourly',
+    'pm10,pm2_5,carbon_monoxide,nitrogen_dioxide,sulphur_dioxide,european_aqi'
   )
   url.searchParams.set(
-    "current",
-    "pm10,pm2_5,carbon_monoxide,nitrogen_dioxide,sulphur_dioxide,european_aqi"
+    'current',
+    'pm10,pm2_5,carbon_monoxide,nitrogen_dioxide,sulphur_dioxide,european_aqi'
   )
-  url.searchParams.set("timezone", "auto")
+  url.searchParams.set('timezone', 'auto')
 
   const res = await fetch(url.toString())
-  if (!res.ok) throw new Error("Air quality fetch failed")
+  if (!res.ok) throw new Error('Air quality fetch failed')
   const data = await res.json()
 
   const c = data.current ?? {}
@@ -164,12 +164,12 @@ export async function fetchHistorical(
 
   // Convert sunrise/sunset to IST display strings
   const toIST = (iso: string) => {
-    if (!iso) return ""
+    if (!iso) return ''
     const d = new Date(iso)
-    return d.toLocaleTimeString("en-IN", {
-      hour: "2-digit",
-      minute: "2-digit",
-      timeZone: "Asia/Kolkata",
+    return d.toLocaleTimeString('en-IN', {
+      hour: '2-digit',
+      minute: '2-digit',
+      timeZone: 'Asia/Kolkata',
     })
   }
 
@@ -190,54 +190,54 @@ export async function fetchHistorical(
 
 export function getWeatherDescription(code: number): string {
   const map: Record<number, string> = {
-    0: "Clear Sky",
-    1: "Mainly Clear",
-    2: "Partly Cloudy",
-    3: "Overcast",
-    45: "Foggy",
-    48: "Icy Fog",
-    51: "Light Drizzle",
-    53: "Drizzle",
-    55: "Heavy Drizzle",
-    61: "Slight Rain",
-    63: "Rain",
-    65: "Heavy Rain",
-    71: "Slight Snow",
-    73: "Snow",
-    75: "Heavy Snow",
-    77: "Snow Grains",
-    80: "Slight Showers",
-    81: "Showers",
-    82: "Violent Showers",
-    85: "Snow Showers",
-    86: "Heavy Snow Showers",
-    95: "Thunderstorm",
-    96: "Thunderstorm w/ Hail",
-    99: "Thunderstorm w/ Heavy Hail",
+    0: 'Clear Sky',
+    1: 'Mainly Clear',
+    2: 'Partly Cloudy',
+    3: 'Overcast',
+    45: 'Foggy',
+    48: 'Icy Fog',
+    51: 'Light Drizzle',
+    53: 'Drizzle',
+    55: 'Heavy Drizzle',
+    61: 'Slight Rain',
+    63: 'Rain',
+    65: 'Heavy Rain',
+    71: 'Slight Snow',
+    73: 'Snow',
+    75: 'Heavy Snow',
+    77: 'Snow Grains',
+    80: 'Slight Showers',
+    81: 'Showers',
+    82: 'Violent Showers',
+    85: 'Snow Showers',
+    86: 'Heavy Snow Showers',
+    95: 'Thunderstorm',
+    96: 'Thunderstorm w/ Hail',
+    99: 'Thunderstorm w/ Heavy Hail',
   }
-  return map[code] ?? "Unknown"
+  return map[code] ?? 'Unknown'
 }
 
-export function getWeatherEmoji(code: number): string {
-  if (code === 0 || code === 1) return "☀️"
-  if (code === 2) return "⛅"
-  if (code === 3) return "☁️"
-  if (code <= 48) return "🌫️"
-  if (code <= 55) return "🌦️"
-  if (code <= 65) return "🌧️"
-  if (code <= 77) return "❄️"
-  if (code <= 82) return "🌩️"
-  if (code <= 86) return "🌨️"
-  return "⛈️"
+export function getWeatherEmoji(code: number) {
+  if (code === 0 || code === 1) return '☀️'
+  if (code === 2) return '⛅'
+  if (code === 3) return '☁️'
+  if (code <= 48) return '🌫️'
+  if (code <= 55) return '🌦️'
+  if (code <= 65) return '🌧️'
+  if (code <= 77) return '❄️'
+  if (code <= 82) return '🌩️'
+  if (code <= 86) return '🌨️'
+  return '⛈️'
 }
 
-export function getAqiLabel(aqi: number): { label: string; color: string } {
-  if (aqi <= 20) return { label: "Good", color: "#22c55e" }
-  if (aqi <= 40) return { label: "Fair", color: "#84cc16" }
-  if (aqi <= 60) return { label: "Moderate", color: "#eab308" }
-  if (aqi <= 80) return { label: "Poor", color: "#f97316" }
-  if (aqi <= 100) return { label: "Very Poor", color: "#ef4444" }
-  return { label: "Extremely Poor", color: "#7c3aed" }
+export function getAqiLabel(aqi: number) {
+  if (aqi <= 20) return { label: 'Good', color: '#22c55e' }
+  if (aqi <= 40) return { label: 'Fair', color: '#84cc16' }
+  if (aqi <= 60) return { label: 'Moderate', color: '#eab308' }
+  if (aqi <= 80) return { label: 'Poor', color: '#f97316' }
+  if (aqi <= 100) return { label: 'Very Poor', color: '#ef4444' }
+  return { label: 'Extremely Poor', color: '#7c3aed' }
 }
 
 export { formatDate }

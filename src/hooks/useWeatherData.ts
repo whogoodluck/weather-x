@@ -1,11 +1,11 @@
-import { useState, useEffect, useCallback } from "react"
+import { useState, useEffect, useCallback } from 'react'
 import type {
   Coordinates,
   CurrentWeather,
   AirQuality,
   HourlyData,
-} from "../types/weather"
-import { fetchCurrentAndHourly, fetchAirQuality, formatDate } from "../lib/api"
+} from '../types/weather'
+import { fetchCurrentAndHourly, fetchAirQuality, formatDate } from '../lib/api'
 
 interface WeatherState {
   current: CurrentWeather | null

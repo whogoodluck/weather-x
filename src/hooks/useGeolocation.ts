@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react"
-import type { Coordinates } from "../types/weather"
+import { useState, useEffect } from 'react'
+import type { Coordinates } from '../types/weather'
 
 interface GeoState {
   coords: Coordinates | null
@@ -16,10 +16,11 @@ export function useGeolocation() {
 
   useEffect(() => {
     if (!navigator.geolocation) {
+      /* eslint-disable react-hooks/set-state-in-effect */
       setState({
         coords: null,
         loading: false,
-        error: "Geolocation not supported",
+        error: 'Geolocation not supported',
       })
       return
     }
@@ -33,7 +34,7 @@ export function useGeolocation() {
         })
       },
       (err) => {
-        console.warn("GPS denied, using fallback:", err.message)
+        console.warn('GPS denied, using fallback:', err.message)
         setState({
           coords: { lat: 28.6139, lon: 77.209 },
           loading: false,

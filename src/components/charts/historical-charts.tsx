@@ -1,4 +1,4 @@
-import React from "react"
+import React from 'react'
 import {
   LineChart,
   Line,
@@ -11,21 +11,21 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
-} from "recharts"
-import { ScrollableChart } from "./scrollable-chart"
-import type { DailyHistoricalData } from "../../types/weather"
+} from 'recharts'
+import { ScrollableChart } from './scrollable-chart'
+import type { DailyHistoricalData } from '../../types/weather'
 
 interface Props {
   data: DailyHistoricalData
 }
 
 const tooltipStyle = {
-  backgroundColor: "var(--card)",
-  border: "1px solid var(--border)",
-  borderRadius: "8px",
-  color: "var(--foreground)",
-  fontSize: "11px",
-  maxWidth: "180px",
+  backgroundColor: 'var(--card)',
+  border: '1px solid var(--border)',
+  borderRadius: '8px',
+  color: 'var(--foreground)',
+  fontSize: '11px',
+  maxWidth: '180px',
 }
 
 function ChartCard({
@@ -36,8 +36,8 @@ function ChartCard({
   children: React.ReactNode
 }) {
   return (
-    <div className="rounded-2xl border border-border bg-card p-4 shadow-sm">
-      <p className="mb-3 text-sm font-semibold tracking-wide text-muted-foreground uppercase">
+    <div className='rounded-2xl border border-border bg-card p-4 shadow-sm'>
+      <p className='mb-3 text-sm font-semibold tracking-wide text-muted-foreground uppercase'>
         {title}
       </p>
       {children}
@@ -55,8 +55,8 @@ function tickInterval(n: number) {
 }
 
 function formatDate(dateStr: string) {
-  const d = new Date(dateStr + "T00:00:00")
-  return d.toLocaleDateString("en-IN", { month: "short", day: "numeric" })
+  const d = new Date(dateStr + 'T00:00:00')
+  return d.toLocaleDateString('en-IN', { month: 'short', day: 'numeric' })
 }
 
 // Compute chart width based on data size — each data point ~12px min
@@ -101,50 +101,50 @@ export function HistoricalCharts({ data }: Props) {
   }))
 
   return (
-    <div className="grid gap-5">
+    <div className='grid gap-5'>
       {/* Temperature */}
-      <ChartCard title="Temperature — Mean, Max & Min (°C)">
+      <ChartCard title='Temperature — Mean, Max & Min (°C)'>
         <ScrollableChart minWidth={cWidth} height={240}>
-          <ResponsiveContainer width="100%" height="100%">
+          <ResponsiveContainer width='100%' height='100%'>
             <LineChart
               data={tempData}
               margin={{ top: 5, right: 20, left: 0, bottom: 5 }}
             >
-              <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
+              <CartesianGrid strokeDasharray='3 3' stroke='var(--border)' />
               <XAxis
-                dataKey="date"
+                dataKey='date'
                 tick={{ fontSize: 9 }}
                 interval={interval}
               />
-              <YAxis tick={{ fontSize: 10 }} unit="°" />
+              <YAxis tick={{ fontSize: 10 }} unit='°' />
               <Tooltip
                 contentStyle={tooltipStyle}
                 formatter={(v, name) => [`${v}°C`, name]}
               />
               <Legend wrapperStyle={{ fontSize: 11 }} />
               <Line
-                type="monotone"
-                dataKey="max"
-                stroke="#ef4444"
+                type='monotone'
+                dataKey='max'
+                stroke='#ef4444'
                 strokeWidth={1.5}
                 dot={false}
-                name="Max"
+                name='Max'
               />
               <Line
-                type="monotone"
-                dataKey="mean"
-                stroke="#f59e0b"
+                type='monotone'
+                dataKey='mean'
+                stroke='#f59e0b'
                 strokeWidth={1.5}
                 dot={false}
-                name="Mean"
+                name='Mean'
               />
               <Line
-                type="monotone"
-                dataKey="min"
-                stroke="#38bdf8"
+                type='monotone'
+                dataKey='min'
+                stroke='#38bdf8'
                 strokeWidth={1.5}
                 dot={false}
-                name="Min"
+                name='Min'
               />
             </LineChart>
           </ResponsiveContainer>
@@ -152,16 +152,16 @@ export function HistoricalCharts({ data }: Props) {
       </ChartCard>
 
       {/* Sunrise & Sunset */}
-      <ChartCard title="Sunrise & Sunset (IST)">
+      <ChartCard title='Sunrise & Sunset (IST)'>
         <ScrollableChart minWidth={cWidth} height={200}>
-          <ResponsiveContainer width="100%" height="100%">
+          <ResponsiveContainer width='100%' height='100%'>
             <LineChart
               data={sunData}
               margin={{ top: 5, right: 20, left: 0, bottom: 5 }}
             >
-              <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
+              <CartesianGrid strokeDasharray='3 3' stroke='var(--border)' />
               <XAxis
-                dataKey="date"
+                dataKey='date'
                 tick={{ fontSize: 9 }}
                 interval={interval}
               />
@@ -169,20 +169,20 @@ export function HistoricalCharts({ data }: Props) {
               <Tooltip contentStyle={tooltipStyle} />
               <Legend wrapperStyle={{ fontSize: 11 }} />
               <Line
-                type="monotone"
-                dataKey="sunrise"
-                stroke="#fbbf24"
+                type='monotone'
+                dataKey='sunrise'
+                stroke='#fbbf24'
                 strokeWidth={1.5}
                 dot={false}
-                name="Sunrise"
+                name='Sunrise'
               />
               <Line
-                type="monotone"
-                dataKey="sunset"
-                stroke="#f97316"
+                type='monotone'
+                dataKey='sunset'
+                stroke='#f97316'
                 strokeWidth={1.5}
                 dot={false}
-                name="Sunset"
+                name='Sunset'
               />
             </LineChart>
           </ResponsiveContainer>
@@ -190,28 +190,28 @@ export function HistoricalCharts({ data }: Props) {
       </ChartCard>
 
       {/* Precipitation */}
-      <ChartCard title="Precipitation — Daily Total (mm)">
+      <ChartCard title='Precipitation — Daily Total (mm)'>
         <ScrollableChart minWidth={cWidth} height={220}>
-          <ResponsiveContainer width="100%" height="100%">
+          <ResponsiveContainer width='100%' height='100%'>
             <BarChart
               data={precipData}
               margin={{ top: 5, right: 20, left: 0, bottom: 5 }}
               barSize={4}
             >
-              <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
+              <CartesianGrid strokeDasharray='3 3' stroke='var(--border)' />
               <XAxis
-                dataKey="date"
+                dataKey='date'
                 tick={{ fontSize: 9 }}
                 interval={interval}
               />
-              <YAxis tick={{ fontSize: 10 }} unit=" mm" />
+              <YAxis tick={{ fontSize: 10 }} unit=' mm' />
               <Tooltip
                 contentStyle={tooltipStyle}
-                formatter={(v) => [`${v} mm`, "Precipitation"]}
+                formatter={(v) => [`${v} mm`, 'Precipitation']}
               />
               <Bar
-                dataKey="precipitation"
-                fill="#6366f1"
+                dataKey='precipitation'
+                fill='#6366f1'
                 radius={[2, 2, 0, 0]}
               />
             </BarChart>
@@ -220,46 +220,46 @@ export function HistoricalCharts({ data }: Props) {
       </ChartCard>
 
       {/* Wind speed + direction */}
-      <ChartCard title="Wind — Max Speed (km/h) & Dominant Direction (°)">
+      <ChartCard title='Wind — Max Speed (km/h) & Dominant Direction (°)'>
         <ScrollableChart minWidth={cWidth} height={240}>
-          <ResponsiveContainer width="100%" height="100%">
+          <ResponsiveContainer width='100%' height='100%'>
             <ComposedChart
               data={windData}
               margin={{ top: 5, right: 20, left: 0, bottom: 5 }}
             >
-              <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
+              <CartesianGrid strokeDasharray='3 3' stroke='var(--border)' />
               <XAxis
-                dataKey="date"
+                dataKey='date'
                 tick={{ fontSize: 9 }}
                 interval={interval}
               />
-              <YAxis yAxisId="left" tick={{ fontSize: 10 }} unit=" km/h" />
+              <YAxis yAxisId='left' tick={{ fontSize: 10 }} unit=' km/h' />
               <YAxis
-                yAxisId="right"
-                orientation="right"
+                yAxisId='right'
+                orientation='right'
                 tick={{ fontSize: 10 }}
-                unit="°"
+                unit='°'
                 domain={[0, 360]}
               />
               <Tooltip contentStyle={tooltipStyle} />
               <Legend wrapperStyle={{ fontSize: 11 }} />
               <Bar
-                yAxisId="left"
-                dataKey="windMax"
-                fill="#10b981"
+                yAxisId='left'
+                dataKey='windMax'
+                fill='#10b981'
                 opacity={0.7}
                 radius={[2, 2, 0, 0]}
-                name="Max Speed"
+                name='Max Speed'
                 barSize={4}
               />
               <Line
-                yAxisId="right"
-                type="monotone"
-                dataKey="windDir"
-                stroke="#a855f7"
+                yAxisId='right'
+                type='monotone'
+                dataKey='windDir'
+                stroke='#a855f7'
                 strokeWidth={1}
                 dot={false}
-                name="Direction"
+                name='Direction'
               />
             </ComposedChart>
           </ResponsiveContainer>
@@ -267,37 +267,37 @@ export function HistoricalCharts({ data }: Props) {
       </ChartCard>
 
       {/* PM10 + PM2.5 */}
-      <ChartCard title="Air Quality — PM10 & PM2.5 Daily Mean (μg/m³)">
+      <ChartCard title='Air Quality — PM10 & PM2.5 Daily Mean (μg/m³)'>
         <ScrollableChart minWidth={cWidth} height={240}>
-          <ResponsiveContainer width="100%" height="100%">
+          <ResponsiveContainer width='100%' height='100%'>
             <LineChart
               data={pmData}
               margin={{ top: 5, right: 20, left: 0, bottom: 5 }}
             >
-              <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
+              <CartesianGrid strokeDasharray='3 3' stroke='var(--border)' />
               <XAxis
-                dataKey="date"
+                dataKey='date'
                 tick={{ fontSize: 9 }}
                 interval={interval}
               />
-              <YAxis tick={{ fontSize: 10 }} unit=" μg" />
+              <YAxis tick={{ fontSize: 10 }} unit=' μg' />
               <Tooltip contentStyle={tooltipStyle} />
               <Legend wrapperStyle={{ fontSize: 11 }} />
               <Line
-                type="monotone"
-                dataKey="pm10"
-                stroke="#ef4444"
+                type='monotone'
+                dataKey='pm10'
+                stroke='#ef4444'
                 strokeWidth={1.5}
                 dot={false}
-                name="PM10"
+                name='PM10'
               />
               <Line
-                type="monotone"
-                dataKey="pm25"
-                stroke="#f59e0b"
+                type='monotone'
+                dataKey='pm25'
+                stroke='#f59e0b'
                 strokeWidth={1.5}
                 dot={false}
-                name="PM2.5"
+                name='PM2.5'
               />
             </LineChart>
           </ResponsiveContainer>
