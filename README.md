@@ -2,13 +2,13 @@
 
 > Assignment submission for Junior ReactJS Frontend Developer role at The Lattice.
 
-**Live Demo:** [your-live-url-here](https://weather-x-two.vercel.app)
+[Live demo](https://weather-x-two.vercel.app)
 
 ---
 
 ## Screenshot
 
-![WeatherX Dashboard](./dashboard-screenshot.png)
+![WeatherX Dashboard](./public/dashboard-screenshot.png)
 
 ---
 
