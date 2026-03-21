@@ -147,43 +147,6 @@ export function HistoricalCharts({ data }: Props) {
         </ScrollableChart>
       </ChartCard>
 
-      <ChartCard title='Sunrise & Sunset (IST)'>
-        <ScrollableChart minWidth={cWidth} height={200}>
-          <ResponsiveContainer width='100%' height='100%'>
-            <LineChart
-              data={sunData}
-              margin={{ top: 5, right: 20, left: 0, bottom: 5 }}
-            >
-              <CartesianGrid strokeDasharray='3 3' stroke='var(--border)' />
-              <XAxis
-                dataKey='date'
-                tick={{ fontSize: 9 }}
-                interval={interval}
-              />
-              <YAxis hide />
-              <Tooltip contentStyle={tooltipStyle} />
-              <Legend wrapperStyle={{ fontSize: 11 }} />
-              <Line
-                type='monotone'
-                dataKey='sunrise'
-                stroke='#fbbf24'
-                strokeWidth={1.5}
-                dot={false}
-                name='Sunrise'
-              />
-              <Line
-                type='monotone'
-                dataKey='sunset'
-                stroke='#f97316'
-                strokeWidth={1.5}
-                dot={false}
-                name='Sunset'
-              />
-            </LineChart>
-          </ResponsiveContainer>
-        </ScrollableChart>
-      </ChartCard>
-
       <ChartCard title='Precipitation — Daily Total (mm)'>
         <ScrollableChart minWidth={cWidth} height={220}>
           <ResponsiveContainer width='100%' height='100%'>
@@ -255,6 +218,43 @@ export function HistoricalCharts({ data }: Props) {
                 name='Direction'
               />
             </ComposedChart>
+          </ResponsiveContainer>
+        </ScrollableChart>
+      </ChartCard>
+
+      <ChartCard title='Sunrise & Sunset (IST)'>
+        <ScrollableChart minWidth={cWidth} height={200}>
+          <ResponsiveContainer width='100%' height='100%'>
+            <LineChart
+              data={sunData}
+              margin={{ top: 5, right: 20, left: 0, bottom: 5 }}
+            >
+              <CartesianGrid strokeDasharray='3 3' stroke='var(--border)' />
+              <XAxis
+                dataKey='date'
+                tick={{ fontSize: 9 }}
+                interval={interval}
+              />
+              <YAxis hide />
+              <Tooltip contentStyle={tooltipStyle} />
+              <Legend wrapperStyle={{ fontSize: 11 }} />
+              <Line
+                type='monotone'
+                dataKey='sunrise'
+                stroke='#fbbf24'
+                strokeWidth={1.5}
+                dot={false}
+                name='Sunrise'
+              />
+              <Line
+                type='monotone'
+                dataKey='sunset'
+                stroke='#f97316'
+                strokeWidth={1.5}
+                dot={false}
+                name='Sunset'
+              />
+            </LineChart>
           </ResponsiveContainer>
         </ScrollableChart>
       </ChartCard>
