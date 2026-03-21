@@ -36,7 +36,7 @@ function ChartCard({
   children: React.ReactNode
 }) {
   return (
-    <div className='rounded-2xl border border-border bg-card p-4 shadow-sm'>
+    <div className='overflow-x-auto rounded-2xl border border-border bg-card p-4 shadow-sm'>
       <p className='mb-3 text-sm font-semibold tracking-wide text-muted-foreground uppercase'>
         {title}
       </p>

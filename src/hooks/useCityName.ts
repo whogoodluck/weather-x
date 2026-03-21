@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import type { Coordinates } from '../types/weather'
 
-export function useCityName(coords: Coordinates | null): string {
+export function useCityName(coords: Coordinates | null) {
   const [city, setCity] = useState('Your Location')
 
   useEffect(() => {

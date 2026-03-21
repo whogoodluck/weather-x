@@ -1,20 +1,14 @@
-import type {
-  Coordinates,
-  CurrentWeather,
-  AirQuality,
-  HourlyData,
-  DailyHistoricalData,
-} from '../types/weather'
+import type { Coordinates } from '../types/weather'
 
 const BASE_URL = 'https://api.open-meteo.com/v1'
 const ARCHIVE_URL = 'https://archive-api.open-meteo.com/v1'
 const AIR_URL = 'https://air-quality-api.open-meteo.com/v1'
 
-function formatDate(date: Date): string {
+function formatDate(date: Date) {
   return date.toISOString().split('T')[0]
 }
 
-function parseTime(iso: string): string {
+function parseTime(iso: string) {
   const d = new Date(iso)
   return d.toLocaleTimeString('en-IN', {
     hour: '2-digit',
@@ -23,10 +17,7 @@ function parseTime(iso: string): string {
   })
 }
 
-export async function fetchCurrentAndHourly(
-  coords: Coordinates,
-  date: string
-): Promise<{ current: CurrentWeather; hourly: HourlyData }> {
+export async function fetchCurrentAndHourly(coords: Coordinates, date: string) {
   const url = new URL(`${BASE_URL}/forecast`)
   url.searchParams.set('latitude', String(coords.lat))
   url.searchParams.set('longitude', String(coords.lon))
@@ -51,7 +42,7 @@ export async function fetchCurrentAndHourly(
   const data = await res.json()
 
   const daily = data.daily
-  const current: CurrentWeather = {
+  const current = {
     temperature: data.current?.temperature_2m ?? daily.temperature_2m_max[0],
     temperatureMin: daily.temperature_2m_min[0],
     temperatureMax: daily.temperature_2m_max[0],
@@ -65,7 +56,7 @@ export async function fetchCurrentAndHourly(
     weatherCode: daily.weather_code[0],
   }
 
-  const hourly: HourlyData = {
+  const hourly = {
     time: data.hourly.time,
     temperature2m: data.hourly.temperature_2m,
     relativeHumidity2m: data.hourly.relative_humidity_2m,
@@ -79,10 +70,7 @@ export async function fetchCurrentAndHourly(
   return { current, hourly }
 }
 
-export async function fetchAirQuality(
-  coords: Coordinates,
-  date: string
-): Promise<{ aq: AirQuality; hourlyPm10: number[]; hourlyPm25: number[] }> {
+export async function fetchAirQuality(coords: Coordinates, date: string) {
   const url = new URL(`${AIR_URL}/air-quality`)
   url.searchParams.set('latitude', String(coords.lat))
   url.searchParams.set('longitude', String(coords.lon))
@@ -105,11 +93,11 @@ export async function fetchAirQuality(
   const c = data.current ?? {}
   const h = data.hourly ?? {}
 
-  const aq: AirQuality = {
+  const aq = {
     pm10: c.pm10 ?? h.pm10?.[12] ?? 0,
     pm25: c.pm2_5 ?? h.pm2_5?.[12] ?? 0,
     carbonMonoxide: c.carbon_monoxide ?? h.carbon_monoxide?.[12] ?? 0,
-    carbonDioxide: null, // not provided by open-meteo
+    carbonDioxide: null,
     nitrogenDioxide: c.nitrogen_dioxide ?? h.nitrogen_dioxide?.[12] ?? 0,
     sulphurDioxide: c.sulphur_dioxide ?? h.sulphur_dioxide?.[12] ?? 0,
     europeanAqi: c.european_aqi ?? h.european_aqi?.[12] ?? 0,
@@ -126,7 +114,7 @@ export async function fetchHistorical(
   coords: Coordinates,
   startDate: string,
   endDate: string
-): Promise<DailyHistoricalData> {
+) {
   const [weatherRes, aqRes] = await Promise.all([
     fetch(
       `${ARCHIVE_URL}/archive?latitude=${coords.lat}&longitude=${coords.lon}&start_date=${startDate}&end_date=${endDate}&daily=temperature_2m_max,temperature_2m_min,temperature_2m_mean,sunrise,sunset,precipitation_sum,wind_speed_10m_max,wind_direction_10m_dominant&timezone=auto`
@@ -187,7 +175,7 @@ export async function fetchHistorical(
   }
 }
 
-export function getWeatherDescription(code: number): string {
+export function getWeatherDescription(code: number) {
   const map: Record<number, string> = {
     0: 'Clear Sky',
     1: 'Mainly Clear',
