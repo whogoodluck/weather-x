@@ -7,6 +7,7 @@ import type {
 } from '../types/weather'
 
 const BASE_URL = 'https://api.open-meteo.com/v1'
+const ARCHIVE_URL = 'https://archive-api.open-meteo.com/v1'
 const AIR_URL = 'https://air-quality-api.open-meteo.com/v1'
 
 function formatDate(date: Date): string {
@@ -128,7 +129,7 @@ export async function fetchHistorical(
 ): Promise<DailyHistoricalData> {
   const [weatherRes, aqRes] = await Promise.all([
     fetch(
-      `${BASE_URL}/archive?latitude=${coords.lat}&longitude=${coords.lon}&start_date=${startDate}&end_date=${endDate}&daily=temperature_2m_max,temperature_2m_min,temperature_2m_mean,sunrise,sunset,precipitation_sum,wind_speed_10m_max,wind_direction_10m_dominant&timezone=auto`
+      `${ARCHIVE_URL}/archive?latitude=${coords.lat}&longitude=${coords.lon}&start_date=${startDate}&end_date=${endDate}&daily=temperature_2m_max,temperature_2m_min,temperature_2m_mean,sunrise,sunset,precipitation_sum,wind_speed_10m_max,wind_direction_10m_dominant&timezone=auto`
     ),
     fetch(
       `${AIR_URL}/air-quality?latitude=${coords.lat}&longitude=${coords.lon}&start_date=${startDate}&end_date=${endDate}&hourly=pm10,pm2_5&timezone=auto`
